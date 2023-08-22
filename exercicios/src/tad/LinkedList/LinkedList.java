@@ -1,4 +1,4 @@
-package tad;
+package tad.LinkedList;
 
 public class LinkedList {
     private Node head;
@@ -59,6 +59,59 @@ public class LinkedList {
             current = current.getNext();
         }
         return current;
+    }
+
+    public void deleteFromBeginning(){
+        if (!this.isEmpty()){
+            this.head = head.getNext();
+            this.lenght--;
+        }
+    }
+
+    public void deleteFromEnd(){
+        if (!this.isEmpty()){
+            var current = this.head;
+            while (current.getNext().hasNext())
+                current = current.getNext();
+            current.setNext(null);
+        }
+    }
+
+    public void deleteAtPosition(int pos){
+        if (pos >= this.lenght)
+            throw new RuntimeException("Posição fora do alcance.");
+        if (!this.isEmpty()){
+            int count=0;
+            var current = this.head;
+            Node previous = new Node();
+
+            while (count != pos+1){
+                if (count == pos-1){
+                    previous = current;
+                }
+                current = current.getNext();
+                count++;
+            }
+
+            previous.setNext(current);
+        }
+    }
+
+
+    public void printLinkedList(){
+        if (this.getLenght() == 0)
+            System.out.println(this.head);
+        else {
+            var current = this.head;
+            while (current != null){
+                System.out.println(current.getData());
+                current = current.getNext();
+            }
+        }
+    }
+
+    private boolean isEmpty(){
+        return this.getLenght() == 0;
     }
 
     public Node getHead() {

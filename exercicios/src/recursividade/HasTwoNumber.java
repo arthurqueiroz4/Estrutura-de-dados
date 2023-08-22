@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class HasTwoNumber {
     public static void main(String[] args) {
-        System.out.println(hasTwoNumber(List.of(2, 5, 8, 11, 14), 10));
+        System.out.println(hasTwoNumber(List.of(4, 0, 0, 0, 0), 8));
     }
 
     public static boolean hasTwoNumber(List<Integer> array, Integer target){
@@ -18,15 +18,16 @@ public class HasTwoNumber {
     }
 
 
-    public static boolean hasTwoNumber(List<Integer> array, Integer target,
-                                       Integer indexNumber1, Integer indexNumber2){
+    public static boolean hasTwoNumber(List<Integer> array,
+                                       Integer target,
+                                       Integer indexNumber1,
+                                       Integer indexNumber2){
 
-        if (!Objects.equals(indexNumber2, indexNumber1)){
-            if ((array.get(indexNumber1) + array.get(indexNumber2)) == target)
+        if (indexNumber2 != indexNumber1 && (array.get(indexNumber1) + array.get(indexNumber2)) == target){
                 return true;
         }
 
-        if (Objects.equals(indexNumber1, array.size()-1) && Objects.equals(indexNumber2, array.size()-1))
+        if (indexNumber1 == array.size()-1 && indexNumber2 == array.size()-1)
             return false;
 
         if (indexNumber2 == array.size()-1)
@@ -34,6 +35,7 @@ public class HasTwoNumber {
         else {
             return hasTwoNumber(array, target, indexNumber1, ++indexNumber2);
         }
+
     }
 
 }

@@ -1,4 +1,4 @@
-package tad;
+package tad.LinkedList;
 
 public class MainLinkedList {
     public static void main(String[] args) {
@@ -8,7 +8,13 @@ public class MainLinkedList {
         linkedList.insertAtBeginning(true);
         linkedList.insertAtEnd("no Final");
 
-        System.out.println(linkedList.toString());
+        linkedList.printLinkedList();
+        linkedList.deleteAtPosition(4);
+        System.out.println();
+        linkedList.printLinkedList();
+
+
+
     }
 }
 
