@@ -1,4 +1,4 @@
-package tad;
+package tad.LinkedList;
 
 public class Node {
     private Object data;
