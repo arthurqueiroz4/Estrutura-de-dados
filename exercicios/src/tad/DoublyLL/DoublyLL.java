@@ -52,8 +52,6 @@ public class DoublyLL {
             this.insertAtBeginning(data);
         }
         else {
-            System.out.println("Get by index "+pos+" -> "+this.getByIndex(pos).toString());
-
             Node newNode = new Node(data, null, null);
             Node nodeAtIndex = this.getByIndex(pos);
 
@@ -66,6 +64,33 @@ public class DoublyLL {
             this.incrementLength();
         }
 
+    }
+
+    public void deleteAtIndex(int index){
+        if (index == 0){
+            this.deleteAtBeginning();
+        } else if (index == this.getLength() - 1){
+            this.deleteAtEnd();
+        } else {
+            Node current = this.getByIndex(index);
+            Node previous = current.getPrevious();
+            Node next = current.getNext();
+
+            previous.setNext(next);
+            next.setPrevious(previous);
+        }
+    }
+
+    private void deleteAtEnd() {
+        Node newTail = this.tail.getPrevious();
+        newTail.setNext(null);
+        this.tail = newTail;
+    }
+
+    private void deleteAtBeginning() {
+        Node newHead = this.head.getNext();
+        newHead.setPrevious(null);
+        this.head = newHead;
     }
 
     private Node getByIndex(int index){

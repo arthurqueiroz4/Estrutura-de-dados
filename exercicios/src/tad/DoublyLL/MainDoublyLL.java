@@ -6,10 +6,13 @@ public class MainDoublyLL {
         doublyLL.insertAtBeginning("fim");
         doublyLL.insertAtBeginning("inicio");
         doublyLL.insertAtEnd("final mesmo");
-        doublyLL.print();
-
         doublyLL.insertAtMiddle("no meio", 0);
         doublyLL.insertAtMiddle("no meio1", 2);
+        doublyLL.print();
+        System.out.println("--------------------------------------------");
+        doublyLL.deleteAtIndex(0);
+        doublyLL.deleteAtIndex(doublyLL.getLength()-1);
+        doublyLL.deleteAtIndex(1);
         doublyLL.print();
     }
 }
