@@ -1,0 +1,67 @@
+package tad.LinkedListProblem;
+
+import tad.LinkedList.Node;
+
+import java.util.Iterator;
+
+import tad.LinkedList.LinkedList;
+
+public class Problems extends LinkedList {
+
+	public static void main(String[] args) {
+		var problem = new Problems();
+		for (int i = 0; i <= 3; i++) {
+			problem.insertAtEnd(i);
+		}
+		problem.insertAtEnd(5);
+		
+		problem.printLinkedList();
+		problem.insertByOrder(4);
+		problem.printLinkedList();
+	}
+	
+	public Node printLastN(int index) {
+		Node fast = this.getHead();
+		Node slow = this.getHead();
+		int count = 0;
+		
+		while (fast.hasNext() && (count != index)) {
+			count++;
+			fast = fast.getNext();
+		}
+		
+		while (fast.hasNext()) {
+			slow = slow.getNext();
+			fast = fast.getNext();
+		}
+		return slow;
+	}
+	
+	public int printLastToFirst(Node head) {
+		if (head == null)
+			return 0;
+		printLastToFirst(head.getNext());
+		System.out.println(head.getData());
+		return 1;
+	}
+	
+	public void insertByOrder(int data) {
+		Node current = this.getHead();
+		Node newNode = new Node(data, null);
+		while (current.getNext() != null ) {
+			if ((int) current.getNext().getData() > data) {
+				break;
+			}
+			current = current.getNext();
+		}
+		
+		if (current.getNext() == null) {
+			current.setNext(newNode);
+		} else {
+			current.setNext(newNode);
+			newNode.setNext(current.getNext());
+		}
+		
+		
+	}
+}
