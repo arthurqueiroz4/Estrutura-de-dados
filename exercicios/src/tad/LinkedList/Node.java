@@ -4,6 +4,15 @@ public class Node {
     private Object data;
     private Node next;
 
+    public Node() {
+
+    }
+
+    public Node(Object data, Node next) {
+        this.data = data;
+        this.next = next;
+    }
+
     public boolean hasNext(){
         return this.getNext() != null;
     }
