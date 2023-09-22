@@ -78,27 +78,31 @@ class Stack:
 
         return stack.isEmpty()
     
-    # @staticmethod
-    # def infixaParaPosfixa(infixa):
-    #     stack = Stack()
-    #     posfixa = str
-    #     for char in infixa:
-    #         if char in "+-*/()":
+    @staticmethod
+    def infixaParaPosfixa(infixa):
+        stack = Stack()
+        posfixa = ""
+        for char in infixa:
+            if char in "+-*/()":
                 
-    #             while not stack.isEmpty() and Stack.verificaPrecedencia(stack.peek(), char):
-    #                 op = stack.pop()
+                while not stack.isEmpty() and Stack.verificaPrecedencia(stack.peek(), char):
+                    op = stack.pop()
 
-    #                 if op not in "()":
-    #                     posfixa += op
-    #                 if op is "(":
-    #                     break
-    #             if char is not ")":
-    #                 stack.push()
+                    if op not in "()":
+                        posfixa += op
+                    if op is "(":
+                        break
+                if char is not ")":
+                    stack.push(char)
                 
-    #             stack.push(char)
-    #         else:
-    #             posfixa += str(char)
-    #     return posfixa
+                stack.push(char)
+            else:
+                posfixa += str(char)
+        while not stack.isEmpty():
+            operator = stack.pop()
+            if operator not in "()":
+                posfixa += operator
+        return posfixa 
 
     @staticmethod
     def verificaPrecedencia(operator1, operator2):
@@ -162,5 +166,6 @@ print(Stack.htmlIsOk("<tag></tag><></>"))
 print(Stack.htmlIsOk("<html><body><p>Texto</p></body></html>"))
 print(Stack.htmlIsOk("<html><body><p>Texto</body></html>"))
 print("-------------------------")
+print(Stack.infixaParaPosfixa("A+B"))
 print(Stack.resolvePostfix("123*+5-"))
 print(Stack.posfixoParaInfixo("AB+C-"))
