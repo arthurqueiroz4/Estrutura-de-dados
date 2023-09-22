@@ -27,7 +27,7 @@ class Stack:
 
     def peek(self):
         if self.head is None:
-            raise IndexError
+            return None
         return self.head.data
 
     def isEmpty(self):
@@ -77,7 +77,73 @@ class Stack:
             count = end + 1
 
         return stack.isEmpty()
+    
+    # @staticmethod
+    # def infixaParaPosfixa(infixa):
+    #     stack = Stack()
+    #     posfixa = str
+    #     for char in infixa:
+    #         if char in "+-*/()":
+                
+    #             while not stack.isEmpty() and Stack.verificaPrecedencia(stack.peek(), char):
+    #                 op = stack.pop()
 
+    #                 if op not in "()":
+    #                     posfixa += op
+    #                 if op is "(":
+    #                     break
+    #             if char is not ")":
+    #                 stack.push()
+                
+    #             stack.push(char)
+    #         else:
+    #             posfixa += str(char)
+    #     return posfixa
+
+    @staticmethod
+    def verificaPrecedencia(operator1, operator2):
+        if operator1 in "+-" and operator2 in "+-":
+            return True
+        if operator1 in "+-" and operator2 in "/*" :
+            return False
+        if operator1 in "/*":
+            return True
+        
+    @staticmethod
+    def resolvePostfix(operation):
+        stack = Stack()
+        for char in operation:
+            if char not in "+-*/":
+                stack.push(char)
+            else:
+                op1 = stack.pop()
+                op2 = stack.pop()
+                stack.push(Stack.execOperation(char, op2, op1)) 
+        return stack.peek()
+    
+    @staticmethod
+    def execOperation(char, op1, op2):
+        if char is "+":
+            return int(op1) + int(op2)
+        elif char is "-":
+            return int(op1) - int(op2)
+        elif char is "*":
+            return int(op1) * int(op2)
+        elif char is "/":
+            return int(op1) // int(op2)
+        
+    @staticmethod
+    def posfixoParaInfixo(operation):
+        stack = Stack()
+        for char in operation:
+            if char not in "+-*/":
+                stack.push(char)
+            else:
+                op1 = stack.pop()
+                op2 = stack.pop()
+                stack.push("("+op2+char+op1+")") 
+        return stack.peek()
+    
 stack = Stack([3, 2, 1])
 
 print("Testando pilha:")
@@ -96,3 +162,5 @@ print(Stack.htmlIsOk("<tag></tag><></>"))
 print(Stack.htmlIsOk("<html><body><p>Texto</p></body></html>"))
 print(Stack.htmlIsOk("<html><body><p>Texto</body></html>"))
 print("-------------------------")
+print(Stack.resolvePostfix("123*+5-"))
+print(Stack.posfixoParaInfixo("AB+C-"))
