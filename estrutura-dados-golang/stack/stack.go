@@ -1,4 +1,4 @@
-package stack
+package main
 
 import (
 	"fmt"
@@ -14,12 +14,12 @@ type Stack struct {
 	Head *Node
 }
 
-func (s *Stack) Push(data string) {
+func (s *Stack) push(data string) {
 	temp := Node{Data: data, Next: s.Head}
 	s.Head = &temp
 }
 
-func (s *Stack) Pop() (string, error) {
+func (s *Stack) pop() (string, error) {
 	if s.Head == nil {
 		return "0", fmt.Errorf("Pilha vazia")
 	}
@@ -28,25 +28,25 @@ func (s *Stack) Pop() (string, error) {
 	return data, nil
 }
 
-func (s *Stack) Peek() (string, error) {
+func (s *Stack) peek() (string, error) {
 	if s.Head == nil {
 		return "0", fmt.Errorf("Pilha vazia")
 	}
 	return s.Head.Data, nil
 }
 
-func (s *Stack) Is_empty() bool {
+func (s *Stack) is_empty() bool {
 	return s.Head == nil
 }
 
-func DelimiterIsOk(expression string) bool {
+func delimiterIsOk(expression string) bool {
 	stack := Stack{}
 	for _, char := range expression {
 		if strings.Contains("({[", string(char)) {
-			stack.Push(string(char))
+			stack.push(string(char))
 		}
 		if strings.Contains(")}]", string(char)) {
-			data, err := stack.Pop()
+			data, err := stack.pop()
 			if err != nil {
 				return false
 			}
@@ -64,7 +64,7 @@ func DelimiterIsOk(expression string) bool {
 	return true
 }
 
-func HtmlIsOk(html string) bool {
+func htmlIsOk(html string) bool {
 	stack := Stack{}
 	var count int
 	for count <= len(html) {
@@ -78,9 +78,9 @@ func HtmlIsOk(html string) bool {
 		tag := html[start+1 : end]
 
 		if !strings.HasPrefix(tag, "/") {
-			stack.Push(tag)
+			stack.push(tag)
 		} else {
-			top, err := stack.Pop()
+			top, err := stack.pop()
 
 			if err != nil {
 				return false
@@ -91,7 +91,7 @@ func HtmlIsOk(html string) bool {
 		}
 		count = end + 1
 	}
-	return stack.Is_empty()
+	return stack.is_empty()
 }
 func findInText(text string, target string, start int) int {
 	for i := start; i < len(text); i++ {
@@ -102,3 +102,17 @@ func findInText(text string, target string, start int) int {
 	return -1
 }
 
+func main() {
+	stack := Stack{}
+	stack.push("3")
+	stack.push("2")
+	stack.push("1")
+	fmt.Println(stack.peek())
+	fmt.Println(stack.pop())
+	fmt.Println(stack.pop())
+	fmt.Println(stack.pop())
+
+	fmt.Println()
+	fmt.Println(htmlIsOk("<html><body><p>Texto</p></body></html>"))
+	fmt.Println(htmlIsOk("<html><body><p>Texto</body></html>"))
+}
